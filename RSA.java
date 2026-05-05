@@ -42,15 +42,11 @@ class RSA {
             p = p.setBit(bits - 1); 
             p = p.setBit(0); 
     
-            if (p.bitLength() < 64) {
-                if (!isPrimeDeterministic(p.longValue())) continue;
-            }
-    
             //Cheap checks for divisibility for all small primes under 50
             int[] cheapTestList = {3,5,7,11,13,17,19,23,29,31,37,41,43,47};
             boolean failsTest = false;
-    
             for (int prime : cheapTestList) {
+                if (p.equals(BigInteger.valueOf(prime))) break; 
                 if (p.mod(BigInteger.valueOf(prime)).equals(BigInteger.ZERO)) {
                     failsTest = true;
                     break;
@@ -58,10 +54,15 @@ class RSA {
             }
             if (failsTest) continue;
     
-            //Miller-Rabin primality test
-            if (!millerRabin(p, 20)) continue;
-    
-            return p;
+            if (bits < 64) {
+                if (isPrimeDeterministic(p.longValue())) {
+                    return p;
+                }
+            } else {
+                if (millerRabin(p, 20)) {
+                    return p;
+                }
+            }
         }
     }
 
