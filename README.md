@@ -4,4 +4,4 @@ Compile the project with "javac RSA.java Alice.java Bob.java". Then, open two te
 
 Next, on the other terminal, run "java Alice", input Bob’s n and e, and enter a message you want to send to Bob. Alice will output an encrypted ciphertext.
 
-Finally, paste the ciphertext back into Bob’s program to decrypt it and confirm that the original message is recovered.
+Then, paste the ciphertext back into Bob’s program to decrypt it and confirm that the original message is recovered.
